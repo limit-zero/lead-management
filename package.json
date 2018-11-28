@@ -1,0 +1,11 @@
+{
+  "name": "lead-management",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.4.3"
+  }
+}
