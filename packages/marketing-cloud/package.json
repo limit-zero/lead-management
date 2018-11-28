@@ -6,8 +6,6 @@
   "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/marketing-cloud",
   "license": "MIT",
   "dependencies": {
-    "@limit-zero/lm-env": "^0.0.0",
-    "marketing-cloud-auth": "^1.0.2",
-    "marketing-cloud-soap": "^0.1.0"
+    "@limit-zero/lm-env": "^0.0.0"
   }
 }
