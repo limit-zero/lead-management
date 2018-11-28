@@ -1,0 +1,12 @@
+{
+  "name": "@limit-zero/lm-queue",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/queue",
+  "license": "MIT",
+  "dependencies": {
+    "@limit-zero/lm-env": "^0.0.0",
+    "aws-sdk": "^2.364.0"
+  }
+}
