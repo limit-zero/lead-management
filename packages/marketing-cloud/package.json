@@ -7,6 +7,6 @@
   "license": "MIT",
   "dependencies": {
     "@limit-zero/lm-env": "^0.0.0",
-    "marketing-cloud-soap": "^0.1.1"
+    "marketing-cloud-soap": "^0.1.2"
   }
 }
