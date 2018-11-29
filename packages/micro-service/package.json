@@ -1,0 +1,11 @@
+{
+  "name": "@limit-zero/lm-micro-service",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/micro-service",
+  "license": "MIT",
+  "peerDependencies": {
+    "micro": "^9.3.0"
+  }
+}
