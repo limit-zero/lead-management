@@ -1,8 +1,8 @@
 const MarkingCloudSOAP = require('marketing-cloud-soap');
 const {
-  CLIENT_ID: clientId,
-  CLIENT_SECRET: clientSecret,
-  WSDL: wsdl,
+  MC_CLIENT_ID: clientId,
+  MC_CLIENT_SECRET: clientSecret,
+  MC_WSDL: wsdl,
 } = require('./env');
 
 module.exports = new MarkingCloudSOAP({
