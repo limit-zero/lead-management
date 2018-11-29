@@ -1,11 +1,10 @@
-const { createError } = require('micro');
-const { invalidParamMsg } = require('@limit-zero/lm-common');
+const { createParamError } = require('@limit-zero/lm-micro-service');
 
 const { isArray } = Array;
 
 module.exports = async ({ by, value, props }, { mc }) => {
   const supported = ['ID', 'SubscriberKey'];
-  if (!supported.includes(by)) throw createError(400, invalidParamMsg('params.by', by, supported));
+  if (!supported.includes(by)) throw createParamError('params.by', by, supported);
   try {
     const subscriber = await mc.retrieveOne('Subscriber', {
       attributes: { 'xsi:type': 'SimpleFilterPart' },
