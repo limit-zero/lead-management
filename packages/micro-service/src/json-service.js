@@ -8,7 +8,7 @@ module.exports = ({
   ctx = {},
   statusPath = '/_status',
 } = {}) => jsonErrors(async (req, res) => {
-  if (typeof init === 'function') await init();
+  if (typeof init === 'function') await init(req, res);
   const { url } = req;
   if (url === statusPath) return { ok: true };
 
