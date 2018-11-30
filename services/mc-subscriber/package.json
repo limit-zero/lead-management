@@ -1,9 +1,9 @@
 {
-  "name": "@limit-zero/lm-subscriber",
+  "name": "@limit-zero/lm-mc-subscriber",
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/subscriber",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/mc-subscriber",
   "license": "MIT",
   "scripts": {
     "dev": "micro-dev",

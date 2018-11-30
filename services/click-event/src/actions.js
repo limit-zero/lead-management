@@ -7,7 +7,7 @@ module.exports = {
       value: '2300856',
       props: ['ID', 'EmailAddress'],
     };
-    const json = await call('subscriber.retrieve', { params });
+    const json = await call('mc-subscriber.retrieve', { params });
     return { ID: json.data.ID };
   },
 };

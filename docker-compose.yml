@@ -22,16 +22,16 @@ services:
       - mongodb:/data/db
     ports:
       - "6901:27017"
-  subscriber:
+  mc-subscriber:
     << : *service-defaults
-    working_dir: /lead-management/services/subscriber
+    working_dir: /lead-management/services/mc-subscriber
     ports:
       - "6902:80"
   click-event:
     << : *service-defaults
     working_dir: /lead-management/services/click-event
     depends_on:
-      - subscriber
+      - mc-subscriber
     ports:
       - "6903:80"
 
