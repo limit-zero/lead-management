@@ -1,0 +1,17 @@
+{
+  "name": "@limit-zero/lm-micro-client",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/micro-client",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  },
+  "peerDependencies": {
+    "micro": "^9.3.0"
+  },
+  "devDependencies": {
+    "micro": "^9.3.3"
+  }
+}
