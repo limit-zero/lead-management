@@ -1,9 +1,9 @@
 {
-  "name": "@limit-zero/lm-sync-subscriber",
+  "name": "@limit-zero/lm-subscriber",
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/sync-subscriber",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/subscriber",
   "license": "MIT",
   "scripts": {
     "dev": "micro-dev",
