@@ -10,9 +10,9 @@
     "start": "micro"
   },
   "dependencies": {
+    "@limit-zero/lm-micro-client": "^0.0.0",
     "@limit-zero/lm-micro-service": "^0.0.0",
-    "micro": "^9.3.3",
-    "node-fetch": "^2.3.0"
+    "micro": "^9.3.3"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
