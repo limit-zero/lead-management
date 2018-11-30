@@ -1,0 +1,20 @@
+{
+  "name": "@limit-zero/lm-click-event",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/click-event",
+  "license": "MIT",
+  "scripts": {
+    "dev": "micro-dev",
+    "start": "micro"
+  },
+  "dependencies": {
+    "@limit-zero/lm-micro-service": "^0.0.0",
+    "micro": "^9.3.3",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  }
+}
