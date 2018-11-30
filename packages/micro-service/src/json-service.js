@@ -1,14 +1,16 @@
 const { json, createError } = require('micro');
 const createParamError = require('./param-error');
+const jsonErrors = require('./json-errors');
 
-module.exports = async ({
+module.exports = ({
+  init,
   actions = {},
-  req,
-  res,
   ctx = {},
-} = {}) => {
+}) => jsonErrors(async (req, res) => {
+  if (typeof init === 'function') await init();
   const { url } = req;
-  if (url === '/_status') return 'OK';
+  if (url === '/_status') return { ok: true };
+
   const input = await json(req);
   const { action, params, meta } = input;
   if (!action) throw createError(400, 'No action provided.');
@@ -23,4 +25,4 @@ module.exports = async ({
     ...ctx,
   });
   return output || {};
-};
+});
