@@ -32,8 +32,14 @@ services:
     working_dir: /lead-management/services/click-event
     depends_on:
       - mc-subscriber
+      - mc-send
     ports:
       - "6903:80"
+  mc-send:
+    << : *service-defaults
+    working_dir: /lead-management/services/mc-send
+    ports:
+      - "6904:80"
 
 volumes:
   mongodb: {}
