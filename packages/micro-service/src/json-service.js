@@ -6,10 +6,11 @@ module.exports = ({
   init,
   actions = {},
   ctx = {},
-}) => jsonErrors(async (req, res) => {
+  statusPath = '/_status',
+} = {}) => jsonErrors(async (req, res) => {
   if (typeof init === 'function') await init();
   const { url } = req;
-  if (url === '/_status') return { ok: true };
+  if (url === statusPath) return { ok: true };
 
   const input = await json(req);
   const { action, params, meta } = input;
