@@ -15,7 +15,7 @@ const handleErrors = fn => async (req, res) => {
     send(res, statusCode || 500, obj);
     // eslint-disable-next-line no-console
     if (e instanceof Error) console.error(e.stack);
-    // return null;
+    return null;
   }
 };
 
