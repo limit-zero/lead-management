@@ -9,12 +9,13 @@ const handleErrors = fn => async (req, res) => {
   try {
     return await fn(req, res);
   } catch (e) {
-    const statusCode = e.statusCode || e.status;
-    const obj = { error: true, message: e.message };
-    if (DEV) obj.stack = e.stack.split('\n');
-    send(res, statusCode || 500, obj);
+    const { message, stack } = e;
+    const status = e.statusCode || e.status || 500;
+    const obj = { error: true, status, message };
+    if (DEV) obj.stack = stack.split('\n');
+    send(res, status, obj);
     // eslint-disable-next-line no-console
-    if (e instanceof Error) console.error(e.stack);
+    if (e instanceof Error) console.error(`${status} ${stack}`);
     return null;
   }
 };
