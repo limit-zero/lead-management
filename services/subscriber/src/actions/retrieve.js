@@ -1,3 +1,4 @@
+const { createError } = require('micro');
 const { createParamError } = require('@limit-zero/lm-micro-service');
 
 const { isArray } = Array;
@@ -12,6 +13,7 @@ module.exports = async ({ by, value, props }, { mc }) => {
       SimpleOperator: 'equals',
       Value: value,
     }, isArray(props) ? props : undefined);
+    if (!subscriber) throw createError(404, `No Subscriber found for ${by} ${value}`);
     if (subscriber) delete subscriber.attributes;
     return { data: subscriber };
   } catch (e) {
