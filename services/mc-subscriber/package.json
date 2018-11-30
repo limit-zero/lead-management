@@ -13,7 +13,6 @@
     "@limit-zero/lm-common": "^0.0.0",
     "@limit-zero/lm-marketing-cloud": "^0.0.0",
     "@limit-zero/lm-micro-service": "^0.0.0",
-    "@limit-zero/lm-mongodb": "^0.0.0",
     "micro": "^9.3.3"
   },
   "devDependencies": {
