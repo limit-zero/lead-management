@@ -1,0 +1,39 @@
+version: '3.7'
+
+x-service-defaults:
+  &service-defaults
+  tty: true
+  init: true
+  image: node:10.13-alpine
+  command: ['/lead-management/node_modules/.bin/micro-dev', '--port', '80']
+  volumes:
+    - .:/lead-management:cached
+  environment:
+    NODE_ENV: development
+    MONGO_URI: ${MONGO_URI-mongodb://mongodb:27017}
+    MC_CLIENT_ID: ${MC_CLIENT_ID}
+    MC_CLIENT_SECRET: ${MC_CLIENT_SECRET}
+
+services:
+  mongodb:
+    tty: true
+    image: mongo:3.4
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "6901:27017"
+  subscriber:
+    << : *service-defaults
+    working_dir: /lead-management/services/subscriber
+    ports:
+      - "6902:80"
+  click-event:
+    << : *service-defaults
+    working_dir: /lead-management/services/click-event
+    depends_on:
+      - subscriber
+    ports:
+      - "6903:80"
+
+volumes:
+  mongodb: {}
