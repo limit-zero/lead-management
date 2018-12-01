@@ -53,6 +53,11 @@ services:
     working_dir: /lead-management/services/mc-email
     ports:
       - "6906:80"
+  mc-data-folder:
+    << : *service-defaults
+    working_dir: /lead-management/services/mc-data-folder
+    ports:
+      - "6907:80"
 
 volumes:
   mongodb: {}
