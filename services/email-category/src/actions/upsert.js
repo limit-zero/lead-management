@@ -1,7 +1,7 @@
 const { createError } = require('micro');
 const call = require('@limit-zero/lm-micro-client');
 
-const capitalize = text => text.toLowerCase().split(' ').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+const capitalize = text => text.split(' ').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 
 /**
  * Indexes needed:
