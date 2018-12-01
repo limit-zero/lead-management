@@ -11,5 +11,6 @@ module.exports = {
   'Phone Number': 'phoneNumber',
   Industry: 'attributes.Industry',
   'Job Function': 'attributes.Job Function',
+  'Annual Sales': 'attributes.Annual Sales',
   'NAICS Code': 'attributes.NAICS Code',
 };
