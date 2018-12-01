@@ -6,7 +6,6 @@
   "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/mc-email",
   "license": "MIT",
   "dependencies": {
-    "@limit-zero/lm-common": "^0.0.0",
     "@limit-zero/lm-marketing-cloud": "^0.0.0",
     "@limit-zero/lm-micro-service": "^0.0.0",
     "micro": "^9.3.3"
