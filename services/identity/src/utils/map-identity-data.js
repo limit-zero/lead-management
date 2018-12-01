@@ -12,10 +12,10 @@ const { keys } = Object;
 module.exports = (subscriber) => {
   if (!isObject(subscriber)) return {};
   const attrs = flattenAttrs(subscriber.Attributes);
-  return keys(attrMap).reduce((o, theirKey) => {
+  return keys(attrMap).reduce(({ set, unset }, theirKey) => {
     const ourKey = attrMap[theirKey];
     const value = attrs[theirKey];
-    if (value) return { ...o, [ourKey]: value };
-    return o;
-  }, {});
+    if (value) return { set: { ...set, [ourKey]: value }, unset: { ...unset } };
+    return { set: { ...set }, unset: { ...unset, [ourKey]: 1 } };
+  }, { set: {}, unset: {} });
 };

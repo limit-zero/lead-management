@@ -38,8 +38,7 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
   };
 
   const now = new Date();
-  const data = mapIdentityData(subscriber);
-
+  const { set, unset } = mapIdentityData(subscriber);
   const update = {
     $setOnInsert: {
       emailAddress: email,
@@ -51,12 +50,13 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
       ...query,
     },
     $set: {
-      ...data,
-      fieldCount: Object.keys(data).length + 1,
+      ...set,
+      fieldCount: Object.keys(set).length + 1,
       updatedAt: now,
       'external.createdAt': CreatedDate,
       'external.lastRetrievedAt': now,
     },
+    $unset: unset,
   };
   const r = await collection.updateOne(query, update, { upsert: true });
   return r;
