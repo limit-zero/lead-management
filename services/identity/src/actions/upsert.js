@@ -5,13 +5,15 @@ const mapIdentityData = require('../utils/map-identity-data');
 
 /**
  * Indexes needed:
- * - `{ "external.namespace": 1, "external.identifier": 1 }, { unique: true }`
+ * - `{ "external.ns": 1, "external.id": 1 }, { unique: true }`
  * - `{ emailAddress: 1 }`
  *
  * Notes:
  * - The external identifier value is now a `Number` _not_ a `String`.
  * - The external namespace is now prefix with `MC:` instead of `FuelSOAP:`.
  * - The `externalSource` key has been renamed to `external`.
+ * - The `externalSource.namespace` key has been renamed to `ns`.
+ * - The `externalSource.identifier` key has been renamed to `id`.
  */
 module.exports = async ({ emailAddress }, { mongodb }) => {
   const email = formatEmail(emailAddress);
@@ -31,8 +33,8 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
 
   const { ID, CreatedDate } = subscriber;
   const query = {
-    'external.namespace': 'MC:Subscriber',
-    'external.identifier': Number(ID),
+    'external.id': Number(ID),
+    'external.ns': 'MC:Subscriber',
   };
 
   const now = new Date();
