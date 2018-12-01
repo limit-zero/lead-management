@@ -15,7 +15,7 @@ module.exports = async ({ by, value, props }, { mc }) => {
     }, isArray(props) ? props : undefined);
     if (!send) throw createError(404, `No Send found for ${by} ${value}`);
     if (send) delete send.attributes;
-    return { data: send };
+    return send;
   } catch (e) {
     if (/^The Request Property/.test(e.message)) {
       // Send a 400 on bad props.
