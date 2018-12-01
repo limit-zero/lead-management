@@ -3979,13 +3979,14 @@ marketing-cloud-auth@^1.0.3:
   dependencies:
     node-fetch "^2.2.0"
 
-marketing-cloud-soap@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/marketing-cloud-soap/-/marketing-cloud-soap-0.1.2.tgz#f0a6d6eed4a4b42bd2226a2d7058b6f041bb7b8b"
-  integrity sha512-8wweHAlVAtbBuGVgKKCvq5Cyk852O5sHuWmAdN1ccx64wGPeGevUgp8VCyhnIZXtlI/ndyYecD1VcbdhA664VQ==
+marketing-cloud-soap@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/marketing-cloud-soap/-/marketing-cloud-soap-0.1.3.tgz#1f0f1811613a79d09e93b64d49982fa5e8606473"
+  integrity sha512-AZ+lIIoulHAF+R9iYkkFr/T4O5hXHwLtOM7MHbltoMgKu6Geq804iYkPTgpjqdcoryZL3ukNmZDtTH4tziTM4A==
   dependencies:
     marketing-cloud-auth "^1.0.3"
     moment "^2.22.2"
+    moment-timezone "^0.5.23"
     pretty "^2.0.0"
     soap "^0.25.0"
 
@@ -4213,7 +4214,14 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment@^2.22.2:
+moment-timezone@^0.5.23:
+  version "0.5.23"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.23.tgz#7cbb00db2c14c71b19303cb47b0fb0a6d8651463"
+  integrity sha512-WHFH85DkCfiNMDX5D3X7hpNH3/PUhjTGcD0U1SgfBGZxJ3qUmJh5FdvaFjcClxOvB3rzdfj4oRffbI38jEnC1w==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
   integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
