@@ -15,7 +15,7 @@ module.exports = async ({ by, value, props }, { mc }) => {
     }, isArray(props) ? props : undefined);
     if (!subscriber) throw createError(404, `No Subscriber found for ${by} ${value}`);
     if (subscriber) delete subscriber.attributes;
-    return { data: subscriber };
+    return subscriber;
   } catch (e) {
     if (/^The Request Property/.test(e.message)) {
       // Send a 400 on bad props.
