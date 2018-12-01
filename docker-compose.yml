@@ -48,6 +48,11 @@ services:
       - mc-subscriber
     ports:
       - "6905:80"
+  mc-email:
+    << : *service-defaults
+    working_dir: /lead-management/services/mc-email
+    ports:
+      - "6906:80"
 
 volumes:
   mongodb: {}
