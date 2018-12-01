@@ -10,6 +10,7 @@ const mapIdentityData = require('../utils/map-identity-data');
  *
  * Notes:
  * - The external identifier value is now a `Number` _not_ a `String`.
+ * - The external namespace is now prefix with `MC:` instead of `FuelSOAP:`.
  * - The `externalSource` key has been renamed to `external`.
  */
 module.exports = async ({ emailAddress }, { mongodb }) => {
@@ -30,7 +31,7 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
 
   const { ID, CreatedDate } = subscriber;
   const query = {
-    'external.namespace': 'FuelSOAP:Subscriber',
+    'external.namespace': 'MC:Subscriber',
     'external.identifier': Number(ID),
   };
 
