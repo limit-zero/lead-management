@@ -4,9 +4,13 @@ const { formatEmail } = require('@limit-zero/lm-common');
 const mapIdentityData = require('../utils/map-identity-data');
 
 /**
- * Indexes needed
- * { "external.namespace": 1, "external.identifier": 1 }, { unique: true }
- * { emailAddress: 1 }
+ * Indexes needed:
+ * - `{ "external.namespace": 1, "external.identifier": 1 }, { unique: true }`
+ * - `{ emailAddress: 1 }`
+ *
+ * Notes:
+ * - The external identifier value is now a `Number` _not_ a `String`.
+ * - The `externalSource` key has been renamed to `external`.
  */
 module.exports = async ({ emailAddress }, { mongodb }) => {
   const email = formatEmail(emailAddress);
