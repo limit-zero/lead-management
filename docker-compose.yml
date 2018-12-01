@@ -63,6 +63,15 @@ services:
     working_dir: /lead-management/services/email-category
     ports:
       - "6908:80"
+  email-deployment:
+    << : *service-defaults
+    working_dir: /lead-management/services/email-deployment
+    depends_on:
+      - mongodb
+      - mc-email
+      - email-category
+    ports:
+      - "6909:80"
 
 volumes:
   mongodb: {}
