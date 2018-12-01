@@ -1,0 +1,15 @@
+module.exports = {
+  'First Name': 'givenName',
+  'Last Name': 'familyName',
+  Title: 'title',
+  'Company Name': 'companyName',
+  Address: 'street',
+  City: 'city',
+  State: 'region',
+  Zip: 'postalCode',
+  Country: 'country',
+  'Phone Number': 'phoneNumber',
+  Industry: 'attributes.Industry',
+  'Job Function': 'attributes.Job Function',
+  'NAICS Code': 'attributes.NAICS Code',
+};

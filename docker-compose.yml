@@ -40,6 +40,14 @@ services:
     working_dir: /lead-management/services/mc-send
     ports:
       - "6904:80"
+  identity:
+    << : *service-defaults
+    working_dir: /lead-management/services/identity
+    depends_on:
+      - mongodb
+      - mc-subscriber
+    ports:
+      - "6905:80"
 
 volumes:
   mongodb: {}
