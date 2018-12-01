@@ -3,6 +3,11 @@ const call = require('@limit-zero/lm-micro-client');
 const { formatEmail } = require('@limit-zero/lm-common');
 const mapIdentityData = require('../utils/map-identity-data');
 
+/**
+ * Indexes needed
+ * { "external.namespace": 1, "external.identifier": 1 }, { unique: true }
+ * { emailAddress: 1 }
+ */
 module.exports = async ({ emailAddress }, { mongodb }) => {
   const email = formatEmail(emailAddress);
   if (!email) throw createError(400, "No 'emailAddress' value was provided.");
@@ -31,7 +36,7 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
   const update = {
     $setOnInsert: {
       emailAddress: email,
-      createdAt: CreatedDate,
+      createdAt: now,
       inactive: false,
       inactiveCustomerIds: [],
       inactiveCampaignIds: [],
@@ -42,6 +47,7 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
       ...data,
       fieldCount: Object.keys(data).length + 1,
       updatedAt: now,
+      'external.createdAt': CreatedDate,
       'external.lastRetrievedAt': now,
     },
   };
