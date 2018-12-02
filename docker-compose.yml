@@ -72,6 +72,15 @@ services:
       - email-category
     ports:
       - "6909:80"
+  email-send:
+    << : *service-defaults
+    working_dir: /lead-management/services/email-send
+    depends_on:
+      - mongodb
+      - mc-send
+      - email-deployment
+    ports:
+      - "6910:80"
 
 volumes:
   mongodb: {}
