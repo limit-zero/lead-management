@@ -27,6 +27,11 @@ services:
     working_dir: /lead-management/services/mc-subscriber
     ports:
       - "6902:80"
+  mc-click-event:
+    << : *service-defaults
+    working_dir: /lead-management/services/mc-click-event
+    ports:
+      - "6903:80"
   mc-send:
     << : *service-defaults
     working_dir: /lead-management/services/mc-send
