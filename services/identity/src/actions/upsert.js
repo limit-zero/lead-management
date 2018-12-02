@@ -56,8 +56,9 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
       'external.createdAt': CreatedDate,
       'external.lastRetrievedAt': now,
     },
-    $unset: unset,
   };
+  if (Object.keys(unset).length) update.$unset = unset;
+
   const r = await collection.updateOne(query, update, { upsert: true });
   return r;
 };
