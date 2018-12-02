@@ -58,22 +58,24 @@ module.exports = async ({ id }, { mongodb }) => {
 
   const { set, unset } = mapSendData(send);
   const now = new Date();
+  const createdAt = moment(CreatedDate).toDate();
+
   const update = {
     $setOnInsert: {
       rollupMetrics: false,
       createdAt: now,
       'external.deploymentId': Number(Email.ID),
-      'external.createdAt': moment(CreatedDate).toDate(),
+      'external.createdAt': createdAt,
       __v: 0,
       ...query,
     },
     $set: {
       ...set,
       updatedAt: now,
-      sentDate: moment(SentDate).toDate(),
+      sentDate: SentDate ? moment(SentDate).toDate() : null,
       isTestSend: /^test send/i.test(Subject),
       'metrics.bounces': (HardBounces || 0) + (SoftBounces || 0) + (OtherBounces || 0),
-      'external.updatedAt': moment(ModifiedDate).toDate(),
+      'external.updatedAt': ModifiedDate ? moment(ModifiedDate).toDate() : createdAt,
       'external.lastRetrievedAt': now,
     },
   };

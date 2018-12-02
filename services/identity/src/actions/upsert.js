@@ -1,4 +1,5 @@
 const { createError } = require('micro');
+const moment = require('moment');
 const call = require('@limit-zero/lm-micro-client');
 const { formatEmail } = require('@limit-zero/lm-common');
 const mapIdentityData = require('../utils/map-identity-data');
@@ -53,7 +54,7 @@ module.exports = async ({ emailAddress }, { mongodb }) => {
       ...set,
       fieldCount: Object.keys(set).length + 1,
       updatedAt: now,
-      'external.createdAt': CreatedDate,
+      'external.createdAt': moment(CreatedDate).toDate(),
       'external.lastRetrievedAt': now,
     },
   };

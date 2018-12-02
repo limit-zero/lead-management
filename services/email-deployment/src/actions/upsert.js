@@ -1,4 +1,5 @@
 const { createError } = require('micro');
+const moment = require('moment');
 const call = require('@limit-zero/lm-micro-client');
 
 /**
@@ -46,12 +47,14 @@ module.exports = async ({ id }, { mongodb }) => {
     'external.ns': 'MC:Email',
   };
 
+  const createdAt = moment(CreatedDate).toDate();
+
   const now = new Date();
   const update = {
     $setOnInsert: {
       rollupMetrics: false,
       createdAt: now,
-      'external.createdAt': CreatedDate,
+      'external.createdAt': createdAt,
       __v: 0,
       ...query,
     },
@@ -60,7 +63,7 @@ module.exports = async ({ id }, { mongodb }) => {
       subject: Subject,
       updatedAt: now,
       'external.categoryId': Number(CategoryID),
-      'external.updatedAt': ModifiedDate,
+      'external.updatedAt': ModifiedDate ? moment(ModifiedDate).toDate() : createdAt,
       'external.lastRetrievedAt': now,
     },
   };

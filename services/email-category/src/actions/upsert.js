@@ -1,5 +1,6 @@
 const { createError } = require('micro');
 const call = require('@limit-zero/lm-micro-client');
+const moment = require('moment');
 
 const capitalize = text => text.split(' ').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 
@@ -44,6 +45,8 @@ module.exports = async ({ id, hasDeployments }, { mongodb }) => {
       'external.id': Number(ID),
       'external.ns': 'MC:DataFolder',
     };
+
+    const createdAt = moment(CreatedDate).toDate();
     const now = new Date();
 
     const names = [capitalize(Name)]
@@ -52,6 +55,7 @@ module.exports = async ({ id, hasDeployments }, { mongodb }) => {
 
     const update = {
       $setOnInsert: {
+        'external.createdAt': createdAt,
         'external.parentId': Number(ParentFolder.ID),
         createdAt: now,
         __v: 0,
@@ -62,8 +66,7 @@ module.exports = async ({ id, hasDeployments }, { mongodb }) => {
         fullName: names.join(' | '),
         hasDeployments: hasDeployments ? true : false, // eslint-disable-line no-unneeded-ternary
         updatedAt: now,
-        'external.createdAt': CreatedDate,
-        'external.updatedAt': ModifiedDate,
+        'external.updatedAt': ModifiedDate ? moment(ModifiedDate).toDate() : createdAt,
         'external.lastRetrievedAt': now,
       },
     };
