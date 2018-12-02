@@ -6,10 +6,11 @@
   "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/lm-email-category",
   "license": "MIT",
   "dependencies": {
-    "@limit-zero/lm-mongodb": "^0.0.0",
     "@limit-zero/lm-micro-client": "^0.0.0",
     "@limit-zero/lm-micro-service": "^0.0.0",
-    "micro": "^9.3.3"
+    "@limit-zero/lm-mongodb": "^0.0.0",
+    "micro": "^9.3.3",
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
