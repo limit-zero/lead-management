@@ -1,0 +1,16 @@
+{
+  "name": "@limit-zero/lm-url",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/lm-url",
+  "license": "MIT",
+  "dependencies": {
+    "@limit-zero/lm-micro-service": "^0.0.0",
+    "cheerio": "^1.0.0-rc.2",
+    "micro": "^9.3.3"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  }
+}

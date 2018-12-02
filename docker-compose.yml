@@ -83,6 +83,11 @@ services:
     working_dir: /lead-management/services/mc-link-send
     ports:
       - "6911:80"
+  url:
+    << : *service-defaults
+    working_dir: /lead-management/services/url
+    ports:
+      - "6912:80"
 
 volumes:
   mongodb: {}
