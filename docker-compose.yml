@@ -81,6 +81,11 @@ services:
       - email-deployment
     ports:
       - "6910:80"
+  mc-link-send:
+    << : *service-defaults
+    working_dir: /lead-management/services/mc-link-send
+    ports:
+      - "6911:80"
 
 volumes:
   mongodb: {}

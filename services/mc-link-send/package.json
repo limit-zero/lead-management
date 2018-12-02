@@ -1,0 +1,16 @@
+{
+  "name": "@limit-zero/lm-mc-link-send",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/mc-link-send",
+  "license": "MIT",
+  "dependencies": {
+    "@limit-zero/lm-marketing-cloud": "^0.0.0",
+    "@limit-zero/lm-micro-service": "^0.0.0",
+    "micro": "^9.3.3"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  }
+}
