@@ -8,7 +8,9 @@
   "dependencies": {
     "@limit-zero/lm-micro-service": "^0.0.0",
     "cheerio": "^1.0.0-rc.2",
-    "micro": "^9.3.3"
+    "http-status-codes": "^1.3.0",
+    "micro": "^9.3.3",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
