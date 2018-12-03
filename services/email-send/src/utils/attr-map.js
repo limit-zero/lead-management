@@ -5,7 +5,6 @@ module.exports = {
   FromName: 'fromName',
   NumberDelivered: 'metrics.delivered',
   NumberSent: 'metrics.sent',
-  PreviewURL: 'url',
   Status: 'status',
   Subject: 'subject',
   UniqueClicks: 'metrics.uniqueClicks',

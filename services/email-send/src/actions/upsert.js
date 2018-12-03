@@ -1,5 +1,6 @@
 const { createError } = require('micro');
 const moment = require('moment');
+const fetch = require('node-fetch');
 const call = require('@limit-zero/lm-micro-client');
 const attrMap = require('../utils/attr-map');
 const mapSendData = require('../utils/map-send-data');
@@ -20,7 +21,7 @@ module.exports = async ({ id }, { mongodb }) => {
   if (!id) throw createError(400, "No 'id' value was provided.");
 
   const props = [].concat(
-    ['ID', 'Email.ID', 'SentDate', 'CreatedDate', 'ModifiedDate', 'HardBounces', 'SoftBounces', 'OtherBounces'],
+    ['ID', 'Email.ID', 'SentDate', 'PreviewURL', 'CreatedDate', 'ModifiedDate', 'HardBounces', 'SoftBounces', 'OtherBounces'],
     Object.keys(attrMap),
   );
 
@@ -43,6 +44,7 @@ module.exports = async ({ id }, { mongodb }) => {
     ModifiedDate,
     Subject,
     HardBounces,
+    PreviewURL,
     SoftBounces,
     OtherBounces,
     SentDate,
@@ -50,6 +52,14 @@ module.exports = async ({ id }, { mongodb }) => {
 
   // Upsert the deployment.
   call('email-deployment.upsert', { params: { id: Email.ID } });
+
+  // Load the HTML from the preview URL.
+  // Unfortunately MC does _not_ maintain a static copy of each send.
+  // As such, if the deployment HTML changes, the send HTML will reflect
+  // the _current_ deployment HTML... not what was _actually_ sent.
+  // To try to prevent this, we'll save the HTML to the DB on insert only.
+  const res = await fetch(PreviewURL);
+  const html = await res.text();
 
   const query = {
     'external.id': Number(ID),
@@ -63,6 +73,8 @@ module.exports = async ({ id }, { mongodb }) => {
   const update = {
     $setOnInsert: {
       rollupMetrics: false,
+      url: PreviewURL,
+      html,
       createdAt: now,
       'external.deploymentId': Number(Email.ID),
       'external.createdAt': createdAt,
