@@ -1,4 +1,4 @@
-const { isURL } = require('validator');
+const isURL = require('../utils/is-url');
 
 const matchPattern = new RegExp('(<a[^>]+href=[\'"])(\\s{0,}http.*?)(["\'][^>]*>.*?</a>)', 'igs');
 
@@ -24,7 +24,7 @@ module.exports = async ({ html }) => {
         .replace(/\s/g, '%20')
         .replace(/</g, '%3C')
         .replace(/</g, '%3E');
-      if (isURL(temp, { protocols: ['http', 'https'], require_protocol: true })) {
+      if (isURL(temp)) {
         hrefs.push(match[2]);
       }
     }
