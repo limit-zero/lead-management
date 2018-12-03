@@ -10,8 +10,8 @@ module.exports = (url) => {
   const match3 = /t=([a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+))/i.exec(url);
   if (match3 && match3[1]) {
     try {
-      const decoded = jwt.decode(match3[1], { complete: true, force: true });
-      return decoded.payload.url || null;
+      const { payload } = jwt.decode(match3[1], { complete: true, force: true }) || {};
+      return payload.url || null;
     } catch (e) {
       return null;
     }
