@@ -1,20 +1,32 @@
 version: '3.7'
 
-x-service-defaults:
-  &service-defaults
+x-node-defaults: &node
   tty: true
   init: true
-  image: node:10.13-alpine
-  command: ['/lead-management/node_modules/.bin/micro-dev', '--port', '80']
+  image: node:10.13
   volumes:
-    - .:/lead-management:cached
+    - .:/lm:cached
+    - ./node_modules:/lm/node_modules:delegated
+    - yarn-cache:/.yarn-cache
+  working_dir: /lm
+  entrypoint: ["/lm/node_modules/.bin/micro-dev"]
+  command: ["--port", "80"]
   environment:
+    YARN_CACHE_FOLDER: /.yarn-cache
     NODE_ENV: development
     MONGO_URI: ${MONGO_URI-mongodb://mongodb:27017}
+    URL_MONGO_URI: ${URL_MONGO_URI}
     MC_CLIENT_ID: ${MC_CLIENT_ID}
     MC_CLIENT_SECRET: ${MC_CLIENT_SECRET}
 
+
+
 services:
+  commands:
+    <<: *node
+    entrypoint: ["tail"]
+    command: ["-f", "/dev/null"]
+
   mongodb:
     tty: true
     image: mongo:3.4
@@ -22,72 +34,84 @@ services:
       - mongodb:/data/db
     ports:
       - "6901:27017"
+
   mc-subscriber:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-subscriber
+    <<: *node
+    working_dir: /lm/services/mc-subscriber
     ports:
       - "6902:80"
+
   mc-click-event:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-click-event
+    << : *node
+    working_dir: /lm/services/mc-click-event
     ports:
       - "6903:80"
+
   mc-send:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-send
+    <<: *node
+    working_dir: /lm/services/mc-send
     ports:
       - "6904:80"
+
   identity:
-    << : *service-defaults
-    working_dir: /lead-management/services/identity
+    << : *node
+    working_dir: /lm/services/identity
     depends_on:
       - mongodb
       - mc-subscriber
     ports:
       - "6905:80"
+
   mc-email:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-email
+    << : *node
+    working_dir: /lm/services/mc-email
     ports:
       - "6906:80"
+
   mc-data-folder:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-data-folder
+    << : *node
+    working_dir: /lm/services/mc-data-folder
     ports:
       - "6907:80"
+
   email-category:
-    << : *service-defaults
-    working_dir: /lead-management/services/email-category
+    << : *node
+    working_dir: /lm/services/email-category
     ports:
       - "6908:80"
+
   email-deployment:
-    << : *service-defaults
-    working_dir: /lead-management/services/email-deployment
+    << : *node
+    working_dir: /lm/services/email-deployment
     depends_on:
       - mongodb
       - mc-email
       - email-category
     ports:
       - "6909:80"
+
   email-send:
-    << : *service-defaults
-    working_dir: /lead-management/services/email-send
+    << : *node
+    working_dir: /lm/services/email-send
     depends_on:
       - mongodb
       - mc-send
       - email-deployment
     ports:
       - "6910:80"
+
   mc-link-send:
-    << : *service-defaults
-    working_dir: /lead-management/services/mc-link-send
+    << : *node
+    working_dir: /lm/services/mc-link-send
     ports:
       - "6911:80"
+
   url:
-    << : *service-defaults
-    working_dir: /lead-management/services/url
+    << : *node
+    working_dir: /lm/services/url
     ports:
       - "6912:80"
 
 volumes:
   mongodb: {}
+  yarn-cache: {}
