@@ -96,6 +96,7 @@ services:
     depends_on:
       - mongodb
       - mc-send
+      - url
       - email-deployment
     ports:
       - "6910:80"
