@@ -18,7 +18,7 @@ module.exports = async () => {
   const limit = 500;
 
   // Only returned non-errored items.
-  let docs = await collection.find({ error: { $exists: false } }).limit(limit).toArray();
+  const docs = await collection.find({ error: { $exists: false } }).limit(limit).toArray();
   log(`Found ${docs.length} subscribers in queue.`);
 
   const completed = [];
@@ -60,4 +60,3 @@ module.exports = async () => {
   }
   log('Task complete at', new Date(), 'Took', elapsed(start), '\n');
 };
-

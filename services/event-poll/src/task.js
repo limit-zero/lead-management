@@ -123,7 +123,6 @@ module.exports = async () => {
         upsert: true,
       },
     });
-
   });
 
   const subscriberOps = [...subscriber.values()];
