@@ -11,16 +11,18 @@ const run = async () => {
   // Then run in intervals afterwards.
   let isRunning = false;
   setInterval(() => {
-    // Prevent the interval from "stacking"
+    // Prevent the interval from "stacking" tasks.
     if (!isRunning) {
       isRunning = true;
       task().then(() => {
         isRunning = false;
-      }).catch(e => setImmediate(() => { throw e; }));
+      }).catch(e => setImmediate(() => { throw e; })); // @todo Log this!
     } else {
       log('Task is currently running. Skipping.');
     }
   }, 15000);
 };
 
-run().catch(e => setImmediate(() => { throw e; }));
+// @todo Add unhandled rejection and log!
+
+run().catch(e => setImmediate(() => { throw e; })); // @todo Log this!
