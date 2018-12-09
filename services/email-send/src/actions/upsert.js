@@ -31,14 +31,20 @@ module.exports = async ({ id }, { mongodb }) => {
     props,
   };
 
+  const query = {
+    'external.id': Number(id),
+    'external.ns': 'MC:Send',
+  };
+
   // @todo Need to determine how to select the db for different tenants (IEN vs. DDT)???
-  const [collection, send] = await Promise.all([
-    mongodb.collection('lead-management', 'email-sends'),
+  const collection = await mongodb.collection('lead-management', 'email-sends');
+  // Get the send from MC and the database.
+  const [send, dbSend] = await Promise.all([
     call('mc-send.retrieve', { params }),
+    collection.findOne(query, { projection: { _id: 1 } }),
   ]);
 
   const {
-    ID,
     Email,
     CreatedDate,
     ModifiedDate,
@@ -58,13 +64,20 @@ module.exports = async ({ id }, { mongodb }) => {
   // As such, if the deployment HTML changes, the send HTML will reflect
   // the _current_ deployment HTML... not what was _actually_ sent.
   // To try to prevent this, we'll save the HTML to the DB on insert only.
-  const res = await fetch(PreviewURL);
-  const html = await res.text();
+  let html;
+  let urls;
+  if (!dbSend) {
+    const res = await fetch(PreviewURL);
+    html = await res.text();
 
-  const query = {
-    'external.id': Number(ID),
-    'external.ns': 'MC:Send',
-  };
+    // From html, extract the clean URLs.
+    const urlMap = await call('url.map-from-html', { params: { html, onInvalid: 'empty' } });
+    urls = new Set();
+    urlMap.forEach(({ raw, cleaned }) => {
+      if (!cleaned) console.log('not found for', raw);
+      if (cleaned) urls.add(cleaned);
+    });
+  }
 
   const { set, unset } = mapSendData(send);
   const now = new Date();
@@ -73,8 +86,8 @@ module.exports = async ({ id }, { mongodb }) => {
   const update = {
     $setOnInsert: {
       rollupMetrics: false,
+      isNewsletter: false, // @todo Check this against the category
       url: PreviewURL,
-      html,
       createdAt: now,
       'external.deploymentId': Number(Email.ID),
       'external.createdAt': createdAt,
@@ -91,6 +104,8 @@ module.exports = async ({ id }, { mongodb }) => {
       'external.lastRetrievedAt': now,
     },
   };
+  if (html) update.$set.html = html;
+  if (urls) update.$set.urls = [...urls];
   if (Object.keys(unset).length) update.$unset = unset;
 
   const r = await collection.updateOne(query, update, { upsert: true });
