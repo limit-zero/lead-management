@@ -16,6 +16,7 @@ x-node-defaults: &node
     NODE_ENV: development
     MONGO_URI: ${MONGO_URI-mongodb://mongodb:27017}
     URL_MONGO_URI: ${URL_MONGO_URI}
+    URL_HASH_PARAM: __urlhash
     MC_CLIENT_ID: ${MC_CLIENT_ID}
     MC_CLIENT_SECRET: ${MC_CLIENT_SECRET}
 
