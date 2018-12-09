@@ -1,0 +1,16 @@
+{
+  "name": "@limit-zero/lm-event-poll",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/lm-event-poll",
+  "license": "MIT",
+  "dependencies": {
+    "@limit-zero/lm-common": "^0.0.0",
+    "@limit-zero/lm-marketing-cloud": "^0.0.0",
+    "@limit-zero/lm-mongodb": "^0.0.0",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
+    "object-path": "^0.11.4"
+  }
+}

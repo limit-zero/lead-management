@@ -112,6 +112,16 @@ services:
     ports:
       - "6912:80"
 
+  event-poll:
+    << : *node
+    working_dir: /lm/services/event-poll
+    entrypoint: ["node"]
+    command: ["src/index.js"]
+    depends_on:
+      - mongodb
+    ports:
+      - "6913:80"
+
 volumes:
   mongodb: {}
   yarn-cache: {}
