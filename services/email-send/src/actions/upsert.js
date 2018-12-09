@@ -73,8 +73,7 @@ module.exports = async ({ id }, { mongodb }) => {
     // From html, extract the clean URLs.
     const urlMap = await call('url.map-from-html', { params: { html, onInvalid: 'empty' } });
     urls = new Set();
-    urlMap.forEach(({ raw, cleaned }) => {
-      if (!cleaned) console.log('not found for', raw);
+    urlMap.forEach(({ cleaned }) => {
       if (cleaned) urls.add(cleaned);
     });
   }
