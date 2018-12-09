@@ -6,6 +6,13 @@ const handleInvalid = require('../utils/handle-invalid');
 
 const { URL_HASH_PARAM } = env;
 
+/**
+ * Cleans the provided URL.
+ *
+ * Will trim, parse and clean with cheerio and URL (removes html entities and url encoding).
+ * Will convert previously tracked URLs to their original value.
+ * Will remove the URL hash param if found.
+ */
 module.exports = async ({ url, onInvalid }, { mongodb }) => {
   if (!url) return { url: '' };
   const v = String(url).trim();
