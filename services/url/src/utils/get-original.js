@@ -1,9 +1,8 @@
 const { ObjectID } = require('mongodb');
-const mongodb = require('../mongodb');
 const loadHref = require('./load-href');
 const extractUrlId = require('./extract-url-id');
 
-module.exports = async (href) => {
+module.exports = async (href, mongodb) => {
   const urlId = extractUrlId(href);
   if (!urlId) return href;
 

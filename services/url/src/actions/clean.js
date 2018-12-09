@@ -3,13 +3,13 @@ const loadHref = require('../utils/load-href');
 const getOriginal = require('../utils/get-original');
 const handleInvalid = require('../utils/handle-invalid');
 
-module.exports = async ({ url, onInvalid }) => {
+module.exports = async ({ url, onInvalid }, { mongodb }) => {
   if (!url) return { url: '' };
   const v = String(url).trim();
   let href = loadHref(v);
 
   try {
-    href = await getOriginal(href);
+    href = await getOriginal(href, mongodb);
     if (!href) return handleInvalid(href, onInvalid);
 
     return { url: (new URL(href)).href };
