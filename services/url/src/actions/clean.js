@@ -1,22 +1,17 @@
-const cheerio = require('cheerio');
 const { URL } = require('url');
+const loadHref = require('../utils/load-href');
+const getOriginal = require('../utils/get-original');
 const handleInvalid = require('../utils/handle-invalid');
-const extractUrlId = require('../utils/extract-url-id');
 
 module.exports = async ({ url, onInvalid }) => {
   if (!url) return { url: '' };
   const v = String(url).trim();
-  const $ = cheerio.load(`<a href="${v}"></a>`);
-  const href = $('a').attr('href');
-
-  const urlId = extractUrlId(href);
-  if (urlId) {
-    // Must get the _resolved_ value from the DB.
-    // What happens if not found... handleInvalid.
-  }
-  // console.log('URLID', urlId);
+  let href = loadHref(v);
 
   try {
+    href = await getOriginal(href);
+    if (!href) return handleInvalid(href, onInvalid);
+
     return { url: (new URL(href)).href };
   } catch (e) {
     if (!/^invalid url/i.test(e.message)) {

@@ -14,10 +14,10 @@ const clean = require('./clean');
  * }
  *
  */
-module.exports = async ({ html }) => {
+module.exports = async ({ html, onInvalid }) => {
   const hrefs = await extractFromHtml({ html });
   const mapped = await Promise.all(hrefs.map(async (url) => {
-    const { url: cleaned } = await clean({ url });
+    const { url: cleaned } = await clean({ url, onInvalid });
     return { raw: url, cleaned };
   }));
   return mapped;

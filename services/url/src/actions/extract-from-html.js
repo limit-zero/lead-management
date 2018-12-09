@@ -9,10 +9,11 @@ const matchPattern = new RegExp('(<a[^>]+href=[\'"])(\\s{0,}http.*?)(["\'][^>]*>
  * will be returned as `'  http://www.google.com?foo=bar&amp;x=y '`
  */
 module.exports = async ({ html }) => {
+  if (!html) return [];
   const hrefs = [];
   let match;
   do {
-    match = matchPattern.exec(html);
+    match = matchPattern.exec(String(html));
     if (match) hrefs.push(match[2]);
   } while (match);
   return [...new Set(hrefs)];
