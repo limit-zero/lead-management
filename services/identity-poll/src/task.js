@@ -17,33 +17,47 @@ module.exports = async () => {
   // Retrieve any subscribers in the queue, but limit the max amount.
   const limit = 500;
 
-  let docs = await collection.find().limit(limit).toArray();
+  // Only returned non-errored items.
+  let docs = await collection.find({ error: { $exists: false } }).limit(limit).toArray();
   log(`Found ${docs.length} subscribers in queue.`);
 
-  if (!docs.length) return;
+  const completed = [];
+  const errored = [];
 
-
-  let ids = [];
-  /**
-   * @todo How should a single error be handled here?
-   * If a bad email address is inserted, it will fail the entire batch.
-   * Should probably determine how to flag bad records for review?
-   * Otherwise the poll will get stuck on the bad record.
-   */
-  let results = await Promise.all(docs.map((doc) => {
+  await Promise.all(docs.map((doc) => {
     // @todo Determine how to handle the ClientID.
     const { SubscriberKey, _id } = doc;
-    ids.push(_id);
     const params = { emailAddress: formatEmail(SubscriberKey) };
-    return call('identity.upsert', { params });
+    return call('identity.upsert', { params }).then(() => completed.push(_id)).catch((e) => {
+      const { statusCode } = e;
+      errored.push([_id, e]); // @todo This should log!
+      // Re-throw if a 500 (or unknown).
+      // This will crash the service and force a restart.
+      if (!statusCode || statusCode >= 500) throw e;
+    });
   }));
-  log(`Upserted ${results.length} subscribers as identities.`);
-  results = null;
-  docs = null;
+  log(`Upserted ${completed.length} identities.`);
+
+  // Flag errorerd subscribers.
+  const updateOps = errored.map(([_id, e]) => {
+    const { message, statusCode } = e;
+    return {
+      updateOne: {
+        filter: { _id },
+        update: { $set: { error: { message, statusCode } } },
+      },
+    };
+  });
+  if (updateOps.length) {
+    log(`ERRORS found for ${updateOps.length} subscribers. Flagged.`);
+    await collection.bulkWrite(updateOps);
+  }
 
   // Delete the queued subscribers.
-  await collection.deleteMany({ _id: { $in: ids } });
-  ids = null;
+  if (completed.length) {
+    await collection.deleteMany({ _id: { $in: completed } });
+    log(`Removed ${completed.length} subscribers from the queue`);
+  }
   log('Task complete at', new Date(), 'Took', elapsed(start), '\n');
 };
 
