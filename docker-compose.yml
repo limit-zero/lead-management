@@ -119,8 +119,14 @@ services:
     command: ["src/index.js"]
     depends_on:
       - mongodb
-    ports:
-      - "6913:80"
+
+  identity-poll:
+    << : *node
+    working_dir: /lm/services/identity-poll
+    entrypoint: ["node"]
+    command: ["src/index.js"]
+    depends_on:
+      - identity
 
 volumes:
   mongodb: {}
