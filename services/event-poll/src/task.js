@@ -28,6 +28,7 @@ const getLastID = async () => {
  *
  * mc-queues.subscribers
  * - `{ "ClientID": 1, "SubscriberKey": 1 }, { unique: true }`
+ * - `{ "error": 1 }`
  *
  * mc-queues.event-urls
  * - `{ "ClientID": 1, "URLID": 1 }, { unique: true }`
