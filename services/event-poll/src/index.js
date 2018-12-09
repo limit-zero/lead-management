@@ -12,8 +12,17 @@ const run = async () => {
   // Call immediately the first time.
   await task();
   // Then run in intervals afterwards.
+  let isRunning = false;
   setInterval(() => {
-    task().catch(e => setImmediate(() => { throw e; }));
+    // Prevent the interval from "stacking" tasks.
+    if (!isRunning) {
+      isRunning = true;
+      task().then(() => {
+        isRunning = false;
+      }).catch(e => setImmediate(() => { throw e; })); // @todo Log this!
+    } else {
+      log('Task is currently running. Skipping.');
+    }
   }, 30000);
 };
 
