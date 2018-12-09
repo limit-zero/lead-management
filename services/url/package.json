@@ -6,6 +6,7 @@
   "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/lm-url",
   "license": "MIT",
   "dependencies": {
+    "@limit-zero/lm-env": "^0.0.0",
     "@limit-zero/lm-micro-service": "^0.0.0",
     "cheerio": "^1.0.0-rc.2",
     "http-status-codes": "^1.3.0",

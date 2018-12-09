@@ -1,4 +1,5 @@
 const { jsonService } = require('@limit-zero/lm-micro-service');
+require('./env');
 const mongodb = require('./mongodb');
 const actions = require('./actions');
 
