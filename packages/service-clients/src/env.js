@@ -6,6 +6,7 @@ const {
 const { nonemptystr } = validators;
 
 const services = [
+  'queue',
   'url',
 ];
 

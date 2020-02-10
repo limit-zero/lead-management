@@ -6,6 +6,7 @@ x-env-defaults: &env
   NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
   NODE_ENV: development
   URL_SERVICE_URL: ${URL_SERVICE_URL-http://url}
+  QUEUE_SERVICE_URL: ${QUEUE_SERVICE_URL-http://queue}
 
 x-node-defaults: &node
   tty: true
@@ -29,6 +30,16 @@ services:
   url:
     <<: *node
     working_dir: /lead-management/services/url
+    entrypoint: ["node_modules/.bin/micro-dev"]
+    command: ["--port", "80", "--silent"]
+    environment:
+      <<: *env
+    ports:
+      - "16701:80"
+
+  queue:
+    <<: *node
+    working_dir: /lead-management/services/queue
     entrypoint: ["node_modules/.bin/micro-dev"]
     command: ["--port", "80", "--silent"]
     environment:
