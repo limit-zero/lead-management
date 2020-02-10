@@ -1,0 +1,24 @@
+{
+  "name": "@lead-management/service-clients",
+  "version": "0.9.0",
+  "description": "The ID|Me service clients.",
+  "main": "src/index.js",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/service-clients",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js ./",
+    "test": "yarn lint"
+  },
+  "dependencies": {
+    "@base-cms/env": "^1.0.0",
+    "@base-cms/micro": "^1.9.0",
+    "micro": "^9.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
