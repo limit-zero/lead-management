@@ -6,6 +6,7 @@ const {
 const { nonemptystr } = validators;
 
 const services = [
+  'url',
 ];
 
 module.exports = cleanEnv(process.env, services.reduce((o, name) => {
