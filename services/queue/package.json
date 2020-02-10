@@ -14,6 +14,9 @@
   "dependencies": {
     "@base-cms/env": "^1.0.0",
     "@base-cms/micro": "^1.9.0",
+    "@lead-management/graphql-client-factory": "^0.0.0",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
     "micro": "^9.3.4",
     "newrelic": "^6.3.0"
   },
