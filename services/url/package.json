@@ -11,8 +11,10 @@
     "test": "yarn lint"
   },
   "dependencies": {
+    "@base-cms/env": "^1.0.0",
     "@base-cms/micro": "^1.9.0",
-    "micro": "^9.3.4"
+    "micro": "^9.3.4",
+    "newrelic": "^6.3.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
