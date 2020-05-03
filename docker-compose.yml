@@ -1,7 +1,6 @@
 version: '3.7'
 
 x-env-defaults: &env
-  MC_GRAPHQL_URI: ${MC_GRAPHQL_URI-http://host.docker.internal:17430}
   NEW_RELIC_ENABLED: ${NEW_RELIC_ENABLED-0}
   NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
   NODE_ENV: development
@@ -15,6 +14,9 @@ x-env-service-urls: &env-service-urls
 
 x-env-mongodb: &env-mongodb
   MONGO_URI: ${MONGO_URI-mongodb://mongodb:27017}
+
+x-env-mc-graphql: &env-mc-graphql
+  MC_GRAPHQL_URI: ${MC_GRAPHQL_URI-http://host.docker.internal:17430}
 
 x-node-defaults: &node
   tty: true
@@ -51,8 +53,20 @@ services:
     environment:
       <<: *env
       <<: *env-mongodb
+      <<: *env-mc-graphql
     depends_on:
       - mongodb
+
+  task-dev:
+    <<: *node
+    working_dir: /lead-management/services/task
+    entrypoint: ["node"]
+    environment:
+      <<: *env
+      <<: *env-mongodb
+      <<: *env-mc-graphql
+    depends_on:
+    - mongodb
 
   url:
     <<: *node
