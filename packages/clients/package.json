@@ -1,5 +1,5 @@
 {
-  "name": "@lead-management/service-clients",
+  "name": "@lead-management/clients",
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
@@ -11,9 +11,8 @@
     "test": "yarn lint"
   },
   "dependencies": {
-    "@base-cms/env": "^1.0.0",
-    "@base-cms/micro": "^1.9.0",
-    "micro": "^9.3.4"
+    "@lead-management/micro": "^0.0.0",
+    "envalid": "^6.0.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
