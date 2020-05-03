@@ -19,7 +19,7 @@ x-env-mongodb: &env-mongodb
 x-node-defaults: &node
   tty: true
   init: true
-  image: node:12.15
+  image: node:12.15-alpine
   working_dir: /lead-management
   restart: always
   volumes:
@@ -38,20 +38,22 @@ services:
   url:
     <<: *node
     working_dir: /lead-management/services/url
-    entrypoint: ["node_modules/.bin/micro-dev"]
-    command: ["--port", "80", "--silent"]
+    entrypoint: ["../../node_modules/.bin/gulp"]
     environment:
       <<: *env
+      INTERNAL_PORT: 80
+      EXTERNAL_PORT: 16701
     ports:
       - "16701:80"
 
   queue:
     <<: *node
     working_dir: /lead-management/services/queue
-    entrypoint: ["node_modules/.bin/micro-dev"]
-    command: ["--port", "80", "--silent"]
+    entrypoint: ["../../node_modules/.bin/gulp"]
     environment:
       <<: *env
+      INTERNAL_PORT: 80
+      EXTERNAL_PORT: 16702
     ports:
       - "16702:80"
 
