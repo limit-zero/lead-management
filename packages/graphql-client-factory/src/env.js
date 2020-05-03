@@ -1,10 +1,8 @@
 const {
   cleanEnv,
-  validators,
-} = require('@base-cms/env');
-
-const { nonemptystr } = validators;
+  str,
+} = require('envalid');
 
 module.exports = cleanEnv(process.env, {
-  MC_GRAPHQL_URI: nonemptystr({ desc: 'The primary Marketing Cloud GraphQL API to connect to.' }),
+  MC_GRAPHQL_URI: str({ desc: 'The primary Marketing Cloud GraphQL API to connect to.' }),
 });
