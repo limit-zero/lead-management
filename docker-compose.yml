@@ -5,8 +5,16 @@ x-env-defaults: &env
   NEW_RELIC_ENABLED: ${NEW_RELIC_ENABLED-0}
   NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
   NODE_ENV: development
+  TERMINUS_TIMEOUT: 1000
+  TERMINUS_SHUTDOWN_DELAY: 0
+  YARN_CACHE_FOLDER: /.yarn-cache
+
+x-env-service-urls: &env-service-urls
   URL_SERVICE_URL: ${URL_SERVICE_URL-http://url}
   QUEUE_SERVICE_URL: ${QUEUE_SERVICE_URL-http://queue}
+
+x-env-mongodb: &env-mongodb
+  MONGO_URI: ${MONGO_URI-mongodb://mongodb:27017}
 
 x-node-defaults: &node
   tty: true
