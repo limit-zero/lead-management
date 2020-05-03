@@ -11,7 +11,6 @@
     "test": "yarn lint"
   },
   "dependencies": {
-    "envalid": "^6.0.1",
     "mongodb": "^3.5.7"
   },
   "devDependencies": {
