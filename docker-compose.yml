@@ -35,6 +35,15 @@ services:
     entrypoint: ["tail"]
     command: ["-f", "/dev/null"]
 
+  mongodb:
+    tty: true
+    image: mongo:3.4
+    restart: always
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "${SERVER_DB_PORT-16700}:27017"
+
   task:
     <<: *node
     working_dir: /lead-management/services/task
@@ -65,4 +74,5 @@ services:
       - "16702:80"
 
 volumes:
+  mongodb: {}
   yarn-cache: {}
