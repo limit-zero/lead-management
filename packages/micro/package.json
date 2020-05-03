@@ -1,0 +1,22 @@
+{
+  "name": "@lead-management/micro",
+  "version": "0.0.0",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "gulp",
+    "lint": "eslint --ext .js ./",
+    "test": "yarn lint"
+  },
+  "dependencies": {
+    "@lead-management/utils": "^0.0.0",
+    "micro": "^9.3.4",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
