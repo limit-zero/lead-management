@@ -3,24 +3,24 @@
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/url-service",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/url",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "micro-dev",
+    "dev": "gulp",
     "lint": "eslint --ext .js ./",
     "test": "yarn lint"
   },
   "dependencies": {
-    "@base-cms/env": "^1.0.0",
-    "@base-cms/micro": "^1.9.0",
-    "micro": "^9.3.4",
-    "newrelic": "^6.3.0"
+    "@lead-management/micro": "^0.0.0",
+    "@lead-management/terminus": "^0.0.0",
+    "envalid": "^6.0.1",
+    "newrelic": "^6.6.0"
   },
   "devDependencies": {
+    "@lead-management/gulp": "^0.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "micro-dev": "^3.0.0"
+    "eslint-plugin-import": "^2.20.2"
   }
 }
