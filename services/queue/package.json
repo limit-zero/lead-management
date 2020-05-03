@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/queue-service",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/queue",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "micro-dev",
+    "dev": "gulp",
     "lint": "eslint --ext .js ./",
     "test": "yarn lint"
   },
