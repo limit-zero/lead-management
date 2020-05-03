@@ -2,6 +2,7 @@ const mongodb = require('mongodb');
 
 const defaultOptions = {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 };
 
 module.exports = ({ uri, options } = {}) => {
@@ -30,6 +31,7 @@ module.exports = ({ uri, options } = {}) => {
   };
 
   return {
+    uri,
     connect,
     database,
     collection,
