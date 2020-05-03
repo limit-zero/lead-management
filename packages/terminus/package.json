@@ -1,0 +1,21 @@
+{
+  "name": "@lead-management/terminus",
+  "version": "0.0.0",
+  "author": "Jacob Bare <jacob@parameter1.com>",
+  "private": true,
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js ./",
+    "test": "yarn lint"
+  },
+  "dependencies": {
+    "@godaddy/terminus": "^4.4.0",
+    "envalid": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}
