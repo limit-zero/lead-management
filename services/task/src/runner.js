@@ -3,15 +3,25 @@ require('./newrelic');
 const { isFunction: isFn } = require('@lead-management/utils');
 const newrelic = require('./newrelic');
 
+process.on('unhandledRejection', (e) => {
+  newrelic.noticeError(e);
+  throw e;
+});
+
 const log = (message) => {
   const { log: emit } = console;
   emit(`> ${message}`);
 };
 
-process.on('unhandledRejection', (e) => {
-  newrelic.noticeError(e);
-  throw e;
-});
+const logStart = ({ timesRan }) => log(`Task iteration ${timesRan + 1} starting...`);
+const logComplete = ({ timesRan }) => log(`Task iteration ${timesRan + 1} complete!`);
+
+const run = async ({ task, timesRan }) => {
+  logStart({ timesRan });
+  await task({ timesRan });
+  logComplete({ timesRan });
+  return timesRan + 1;
+};
 
 module.exports = ({
   name,
@@ -26,15 +36,15 @@ module.exports = ({
   if (!isFn(task)) throw new Error('No task function was provided');
 
   // Run any initialization tasks. Will only run once.
+  log('Initializing task...');
   if (isFn(init)) await init();
+  log('Init complete.');
 
   // Call immediately the first time.
-  await task({ timesRan });
-  timesRan += 1;
+  timesRan = await run({ task, timesRan });
 
   // Then run in intervals.
   let isRunning = false;
-
   setInterval(async () => {
     // Do not stack tasks.
     if (isRunning) {
@@ -42,8 +52,7 @@ module.exports = ({
     } else {
       isRunning = true;
       try {
-        await task({ timesRan });
-        timesRan += 1;
+        timesRan = await run({ task, timesRan });
         isRunning = false;
       } catch (e) {
         newrelic.noticeError(e);
