@@ -1,4 +1,4 @@
-const { createRequiredParamError } = require('@base-cms/micro').service;
+const { checkArray } = require('@lead-management/micro/utils');
 const clientFactory = require('@lead-management/graphql-client-factory');
 const gql = require('graphql-tag');
 const cleanIds = require('../utils/clean-ids');
@@ -19,7 +19,7 @@ query SendsToQueue($input: SendsQueryInput!) {
 `;
 
 module.exports = async ({ ids } = {}) => {
-  if (!Array.isArray(ids) || !ids.length) throw createRequiredParamError('ids');
+  checkArray('ids', ids);
   const cleaned = cleanIds(ids);
   const { primary: graphql } = clientFactory();
   const variables = { input: { ids: cleaned } };
