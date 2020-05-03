@@ -35,6 +35,13 @@ services:
     entrypoint: ["tail"]
     command: ["-f", "/dev/null"]
 
+  task:
+    <<: *node
+    working_dir: /lead-management/services/task
+    entrypoint: ["../../node_modules/.bin/forever"]
+    environment:
+      <<: *env
+
   url:
     <<: *node
     working_dir: /lead-management/services/url
