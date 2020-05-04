@@ -4,6 +4,7 @@ const upsertSubscriberFragment = gql`
   fragment UpsertSubscriberFragment on Subscriber {
     id
     emailAddress
+    createdDate
     attributes {
       name
       value
@@ -18,7 +19,7 @@ const SUBSCRIBER_TO_UPSERT = gql`
         simple: {
           prop: "ID"
           operator: equals
-          value: $subscriberId
+          value: [$subscriberId]
         }
       },
     }) {
