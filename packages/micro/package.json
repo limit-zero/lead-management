@@ -2,6 +2,7 @@
   "name": "@lead-management/micro",
   "version": "0.0.0",
   "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/micro",
   "private": true,
   "license": "MIT",
   "scripts": {
