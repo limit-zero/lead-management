@@ -9,7 +9,7 @@ const createOp = ({ namespace, identifier }) => {
   return {
     updateOne: {
       filter: criteria,
-      update: { $setOnInsert: criteria },
+      update: { $setOnInsert: criteria, $set: { last: new Date() } },
       upsert: true,
     },
   };
