@@ -1,9 +1,9 @@
 {
-  "name": "@lead-management/task-service",
+  "name": "@lead-management/click-log-service",
   "version": "0.0.0",
   "main": "src/index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/task",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/services/click-log",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@lead-management/clients": "^0.0.0",
     "@lead-management/mc-graphql-client": "^0.0.0",
     "@lead-management/mongodb": "^0.0.0",
+    "@lead-management/task-runner": "^0.0.0",
     "@lead-management/utils": "^0.0.0",
     "envalid": "^6.0.1",
     "forever": "^2.0.0",

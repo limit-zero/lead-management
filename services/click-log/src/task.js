@@ -1,9 +1,9 @@
 const { getAsArray } = require('@lead-management/utils');
 const clients = require('@lead-management/clients');
-const mongodb = require('../../mongodb');
-const log = require('../../log');
-const createClient = require('../../graphql/create-client');
-const { CLICK_LOG_OBJECTS } = require('../../graphql/queries');
+const log = require('@lead-management/task-runner/log');
+const mongodb = require('./mongodb');
+const createClient = require('./graphql/create-client');
+const { CLICK_LOG_OBJECTS } = require('./graphql/queries');
 
 const { ObjectId } = mongodb.mongodb;
 

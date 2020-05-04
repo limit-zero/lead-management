@@ -46,10 +46,10 @@ services:
     ports:
       - "${SERVER_DB_PORT-16700}:27017"
 
-  task-forever:
+  click-log-forever:
     <<: *node
-    working_dir: /lead-management/services/task
-    entrypoint: ["../../node_modules/.bin/forever"]
+    working_dir: /lead-management/services/click-log
+    entrypoint: ["../../node_modules/.bin/forever", "src/index.js"]
     environment:
       <<: *env
       <<: *env-service-urls
@@ -59,10 +59,10 @@ services:
       - mongodb
       - queue
 
-  task:
+  click-log:
     <<: *node
-    working_dir: /lead-management/services/task
-    entrypoint: ["node"]
+    working_dir: /lead-management/services/click-log
+    entrypoint: ["node", "src/index.js"]
     environment:
       <<: *env
       <<: *env-service-urls
