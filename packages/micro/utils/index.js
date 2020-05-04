@@ -1,3 +1,4 @@
+const { createError } = require('micro');
 const checkArray = require('./check-array');
 const checkExists = require('./check-exists');
 const checkObject = require('./check-object');
@@ -8,4 +9,5 @@ module.exports = {
   checkExists,
   checkObject,
   checkRequired,
+  createError,
 };
