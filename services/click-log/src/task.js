@@ -1,51 +1,14 @@
 const { getAsArray } = require('@lead-management/utils');
 const clients = require('@lead-management/clients');
 const log = require('@lead-management/task-runner/log');
-const mongodb = require('./mongodb');
+
 const createClient = require('./graphql/create-client');
 const { CLICK_LOG_OBJECTS } = require('./graphql/queries');
 
-const { ObjectId } = mongodb.mongodb;
-
-const getCollection = () => mongodb.collection('leads-graph', 'mc-click-log');
-
-const getLastEventDate = async () => {
-  log('Retrieving last event date...');
-  const defaultDate = new Date(Date.parse('2020-05-01T00:00:00-0600'));
-  const coll = await getCollection();
-  const lastDoc = await coll.findOne({}, { sort: { date: -1 }, projection: { date: 1 } });
-  const since = lastDoc ? lastDoc.date : defaultDate;
-  log(`Last event date found: ${since.toISOString()}`);
-  return since;
-};
-
-const formatValue = ({ fields, name, value }) => {
-  const type = fields[name];
-  // force an offset of six hours
-  // marketing cloud ignores CDT and uses all dates in CST
-  const tzOffset = 6 * 60 * 60 * 1000;
-
-  switch (type) {
-    case 'Boolean':
-      if (value === 'False' || value === 'false' || value === '0') return false;
-      if (value === 'True' || value === 'true') return true;
-      return Boolean(value);
-    case 'Number':
-      return Number(value);
-    case 'Date':
-      return new Date(Date.parse(value) + tzOffset);
-    default:
-      if (value === 'False' || value === 'false') return false;
-      if (value === 'True' || value === 'true') return true;
-      return value;
-  }
-};
-
-const extractUrlId = (value) => {
-  const pattern = /leads\.limit0\.io\/click\/([a-f0-9]{24})/;
-  const matches = pattern.exec(value);
-  return matches && matches[1] ? ObjectId(matches[1]) : null;
-};
+const extractUrlId = require('./utils/extract-url-id');
+const formatValue = require('./utils/format-value');
+const getCollection = require('./utils/get-collection');
+const getLastDate = require('./utils/get-last-date');
 
 const fieldMap = {
   ID: '_id',
@@ -58,7 +21,7 @@ const fieldMap = {
 
 module.exports = async () => {
   const graphql = createClient();
-  const since = await getLastEventDate();
+  const since = await getLastDate();
   // process in one-hour chunks
   const notAfter = new Date(since.getTime() + (1 * 60 * 60 * 1000));
 
