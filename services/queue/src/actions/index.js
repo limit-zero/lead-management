@@ -5,7 +5,7 @@ const createOp = ({ namespace, identifier }) => {
   checkRequired('namespace', namespace);
   checkRequired('identifier', identifier);
 
-  const criteria = { namespace: `${namespace}`, identifier: `${identifier}` };
+  const criteria = { namespace, identifier };
   return {
     updateOne: {
       filter: criteria,
