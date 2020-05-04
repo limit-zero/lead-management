@@ -1,5 +1,7 @@
 const mongodb = require('mongodb');
 
+const { ObjectId } = mongodb;
+
 const defaultOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -48,5 +50,6 @@ module.exports = ({ uri, options } = {}) => {
     database,
     collection,
     mongodb,
+    ObjectId,
   };
 };
