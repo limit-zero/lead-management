@@ -1,7 +1,7 @@
-const runner = require('../runner');
-const mongodb = require('../mongodb');
-const log = require('../log');
-
+const runner = require('../../runner');
+const mongodb = require('../../mongodb');
+const log = require('../../log');
+const task = require('./task');
 
 const init = async () => {
   log('Connecting to MongoDB...');
@@ -9,12 +9,9 @@ const init = async () => {
   log(`Connected to ${mongodb.uri}`);
 };
 
-const task = async () => {
-};
-
 runner({
   name: 'click-log',
   init,
   task,
-  interval: 30000,
+  interval: 10000,
 })();

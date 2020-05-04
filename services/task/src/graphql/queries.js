@@ -1,7 +1,7 @@
 const gql = require('graphql-tag');
 
 const CLICK_LOG_OBJECTS = gql`
-  query ClickLogObjects($since: String!) {
+  query ClickLogObjects($since: String!, $notAfter: String!) {
     dataExtension(input: { customerKey: "Click Log" }) {
       fields {
         edges {
@@ -15,11 +15,20 @@ const CLICK_LOG_OBJECTS = gql`
       objects(input: {
         props: ["ID", "JobID", "SubscriberID", "EventDate", "LinkContent", "IsBot_V3"],
         filter: {
-          simple: {
-            prop: "EventDate",
-            operator: greaterThanOrEqual,
-            value: [$since],
-            isDate: true
+          complex: {
+            left: {
+              prop: "EventDate",
+              operator: greaterThanOrEqual,
+              value: [$since],
+              isDate: true
+            },
+            operator: AND
+            right: {
+              prop: "EventDate",
+              operator: lessThan,
+              value: [$notAfter],
+              isDate: true
+            },
           },
         },
       }) {
