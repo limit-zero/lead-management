@@ -1,4 +1,4 @@
-const { getAsArray } = require('@lead-management/utils');
+const { getAsArray, getAsObject } = require('@lead-management/utils');
 const log = require('@lead-management/task-runner/log');
 const createClient = require('../graphql/create-client');
 const { CLICK_LOG_OBJECTS } = require('../graphql/queries');
@@ -13,13 +13,18 @@ const fieldMap = {
   LinkContent: 'url',
 };
 
-module.exports = async ({ since, notAfter }) => {
+module.exports = async ({ since, notAfter, requestId }) => {
   const graphql = createClient();
 
   log('Retrieving click data from GraphQL...');
-  const variables = { since: since.toISOString(), notAfter: notAfter.toISOString() };
+  const variables = {
+    since: since.toISOString(),
+    notAfter: notAfter.toISOString(),
+    requestId,
+  };
   const { data } = await graphql.query({ query: CLICK_LOG_OBJECTS, variables });
-  // @todo handle pagination.
+
+  const pageInfo = getAsObject(data, 'dataExtension.objects.pageInfo');
 
   const fields = getAsArray(data, 'dataExtension.fields.edges').map((edge) => edge.node).reduce((o, field) => {
     const { name, type } = field;
@@ -31,5 +36,5 @@ module.exports = async ({ since, notAfter }) => {
     return { ...o, [key]: formatValue({ fields, name, value }) };
   }, {}));
   log(`Data retrieved. Found ${rows.length} rows.`);
-  return rows;
+  return { rows, pageInfo };
 };
