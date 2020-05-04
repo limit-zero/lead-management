@@ -6,7 +6,7 @@ const newrelic = require('./newrelic');
 const mongodb = require('./mongodb');
 const task = require('./task');
 
-const name = 'click-log';
+const name = 'update-click-log';
 
 const init = async () => {
   newrelic.setTransactionName(name);
