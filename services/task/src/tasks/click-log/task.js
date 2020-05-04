@@ -4,6 +4,8 @@ const log = require('../../log');
 const createClient = require('../../graphql/create-client');
 const { CLICK_LOG_OBJECTS } = require('../../graphql/queries');
 
+const { ObjectId } = mongodb.mongodb;
+
 const getCollection = () => mongodb.collection('leads-graph', 'mc-click-log');
 
 const getLastEventDate = async () => {
@@ -36,6 +38,12 @@ const formatValue = ({ fields, name, value }) => {
       if (value === 'True' || value === 'true') return true;
       return value;
   }
+};
+
+const extractUrlId = (value) => {
+  const pattern = /leads\.limit0\.io\/click\/([a-f0-9]{24})/;
+  const matches = pattern.exec(value);
+  return matches && matches[1] ? ObjectId(matches[1]) : null;
 };
 
 const fieldMap = {
@@ -80,16 +88,21 @@ module.exports = async () => {
   // @todo send queue action.
   log(`${subscriberIds.size} subscriber(s) and ${sendIds.size} send(s) flagged.`);
 
-
-  // @todo add probable urlId.
   log('Upserting into database...');
-  const bulkOps = rows.map((row) => ({
-    updateOne: {
-      filter: { _id: row._id },
-      update: { $setOnInsert: row },
-      upsert: true,
-    },
-  }));
+  const bulkOps = rows.map((row) => {
+    const urlId = extractUrlId(row.url);
+    const $setOnInsert = {
+      ...row,
+      ...(urlId && { urlId }),
+    };
+    return {
+      updateOne: {
+        filter: { _id: row._id },
+        update: { $setOnInsert },
+        upsert: true,
+      },
+    };
+  });
   const coll = await getCollection();
   await coll.bulkWrite(bulkOps);
   log('Upsert complete.');
