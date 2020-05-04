@@ -1,8 +1,8 @@
 const { isFunction: isFn } = require('@lead-management/utils');
 const log = require('./log');
 
-const logStart = ({ timesRan }) => log(`Task iteration ${timesRan + 1} starting...`);
-const logComplete = ({ timesRan }) => log(`Task iteration ${timesRan + 1} complete!`);
+const logStart = ({ timesRan }) => log(`Task iteration ${timesRan + 1} starting...`, { before: '\n' });
+const logComplete = ({ timesRan }) => log(`Task iteration ${timesRan + 1} complete!\n`);
 
 const run = async ({ task, timesRan }) => {
   logStart({ timesRan });

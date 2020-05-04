@@ -1,4 +1,4 @@
-module.exports = (message) => {
+module.exports = (message, { before = '' } = {}) => {
   const { log: emit } = console;
-  emit(`> ${message}`);
+  emit(`${before || ''}> ${message}`);
 };
