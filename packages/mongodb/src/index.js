@@ -1,4 +1,5 @@
 const mongodb = require('mongodb');
+const iterateCursor = require('./iterate-cursor');
 
 const { ObjectId } = mongodb;
 
@@ -51,5 +52,6 @@ module.exports = ({ uri, options } = {}) => {
     collection,
     mongodb,
     ObjectId,
+    iterateCursor,
   };
 };
