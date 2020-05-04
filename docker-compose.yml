@@ -145,6 +145,21 @@ services:
       - mongodb
       - queue
 
+  video:
+    <<: *node
+    working_dir: /lead-management/services/video
+    entrypoint: ["../../node_modules/.bin/gulp"]
+    environment:
+      <<: *env
+      <<: *env-mongodb
+      <<: *env-brightcove
+      INTERNAL_PORT: 80
+      EXTERNAL_PORT: 16704
+    depends_on:
+      - mongodb
+    ports:
+      - "16704:80"
+
   video-sync:
     <<: *node
     working_dir: /lead-management/services/video
