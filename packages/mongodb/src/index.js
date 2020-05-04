@@ -30,9 +30,21 @@ module.exports = ({ uri, options } = {}) => {
     return db.collection(collName, opts);
   };
 
+  const close = async (force) => {
+    const client = await connect();
+    client.close(force);
+  };
+
+  const ping = async () => {
+    const db = await database('test');
+    db.command({ ping: 1 });
+  };
+
   return {
     uri,
     connect,
+    close,
+    ping,
     database,
     collection,
     mongodb,
