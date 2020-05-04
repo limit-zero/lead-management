@@ -20,7 +20,7 @@ const attrMap = {
 
 const getDomainName = (email) => {
   const parts = email.split('@');
-  return parts[1].trim();
+  return parts[1].trim().toLowerCase();
 };
 
 const calcFieldCount = (attributes) => {
