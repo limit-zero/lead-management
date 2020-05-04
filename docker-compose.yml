@@ -114,6 +114,32 @@ services:
     ports:
       - "16703:80"
 
+  identity-upsert:
+    <<: *node
+    working_dir: /lead-management/services/identity
+    entrypoint: ["node", "src/tasks/upsert-from-queue"]
+    environment:
+      <<: *env
+      <<: *env-service-urls
+      <<: *env-mongodb
+      <<: *env-mc-graphql
+    depends_on:
+      - mongodb
+      - queue
+
+  identity-upsert-forever:
+    <<: *node
+    working_dir: /lead-management/services/identity
+    entrypoint: ["../../node_modules/.bin/forever", "src/tasks/upsert-from-queue"]
+    environment:
+      <<: *env
+      <<: *env-service-urls
+      <<: *env-mongodb
+      <<: *env-mc-graphql
+    depends_on:
+      - mongodb
+      - queue
+
 volumes:
   mongodb: {}
   yarn-cache: {}
