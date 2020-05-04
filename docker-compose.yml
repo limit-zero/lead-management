@@ -46,7 +46,7 @@ services:
     ports:
       - "${SERVER_DB_PORT-16700}:27017"
 
-  task:
+  task-forever:
     <<: *node
     working_dir: /lead-management/services/task
     entrypoint: ["../../node_modules/.bin/forever"]
@@ -57,7 +57,7 @@ services:
     depends_on:
       - mongodb
 
-  task-dev:
+  task:
     <<: *node
     working_dir: /lead-management/services/task
     entrypoint: ["node"]
