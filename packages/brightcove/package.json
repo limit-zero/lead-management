@@ -1,0 +1,22 @@
+{
+  "name": "@lead-management/brightcove",
+  "version": "0.0.0",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "repository": "https://github.com/limit-zero/lead-management/tree/master/packages/brightcove",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js ./",
+    "test": "yarn lint"
+  },
+  "dependencies": {
+    "@lead-management/utils": "^0.0.0",
+    "node-fetch": "^2.6.0",
+    "oauth": "^0.9.15"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
