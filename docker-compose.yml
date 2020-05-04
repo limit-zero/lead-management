@@ -18,6 +18,11 @@ x-env-mongodb: &env-mongodb
 x-env-mc-graphql: &env-mc-graphql
   MC_GRAPHQL_URI: ${MC_GRAPHQL_URI-http://host.docker.internal:17430}
 
+x-env-brightcove: &env-brightcove
+  BRIGHTCOVE_ACCOUNT_ID: ${BRIGHTCOVE_ACCOUNT_ID}
+  BRIGHTCOVE_APP_ID: ${BRIGHTCOVE_APP_ID}
+  BRIGHTCOVE_SECRET: ${BRIGHTCOVE_SECRET}
+
 x-node-defaults: &node
   tty: true
   init: true
@@ -139,6 +144,17 @@ services:
     depends_on:
       - mongodb
       - queue
+
+  video:
+    <<: *node
+    working_dir: /lead-management/services/video
+    entrypoint: ["node", "src/tasks/sync"]
+    environment:
+      <<: *env
+      <<: *env-mongodb
+      <<: *env-brightcove
+    depends_on:
+      - mongodb
 
 volumes:
   mongodb: {}
