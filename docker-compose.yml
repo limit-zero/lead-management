@@ -145,10 +145,21 @@ services:
       - mongodb
       - queue
 
-  video:
+  video-sync:
     <<: *node
     working_dir: /lead-management/services/video
     entrypoint: ["node", "src/tasks/sync"]
+    environment:
+      <<: *env
+      <<: *env-mongodb
+      <<: *env-brightcove
+    depends_on:
+      - mongodb
+
+  video-sync-forever:
+    <<: *node
+    working_dir: /lead-management/services/video
+    entrypoint: ["../../node_modules/.bin/forever", "src/tasks/sync"]
     environment:
       <<: *env
       <<: *env-mongodb
