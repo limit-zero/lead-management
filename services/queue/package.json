@@ -12,12 +12,10 @@
     "test": "yarn lint"
   },
   "dependencies": {
-    "@lead-management/graphql-client-factory": "^0.0.0",
     "@lead-management/micro": "^0.0.0",
+    "@lead-management/mongodb": "^0.0.0",
     "@lead-management/terminus": "^0.0.0",
     "envalid": "^6.0.1",
-    "graphql": "^14.6.0",
-    "graphql-tag": "^2.10.3",
     "newrelic": "^6.6.0"
   },
   "devDependencies": {

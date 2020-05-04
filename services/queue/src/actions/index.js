@@ -1,5 +1,1 @@
-const addSends = require('./addSends');
-
-module.exports = {
-  addSends,
-};
+module.exports = {};
