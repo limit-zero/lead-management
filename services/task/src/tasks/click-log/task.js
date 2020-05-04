@@ -1,4 +1,5 @@
 const { getAsArray } = require('@lead-management/utils');
+const clients = require('@lead-management/clients');
 const mongodb = require('../../mongodb');
 const log = require('../../log');
 const createClient = require('../../graphql/create-client');
@@ -85,7 +86,12 @@ module.exports = async () => {
     subscriberIds.add(row.subscriberId);
     sendIds.add(row.sendId);
   });
-  // @todo send queue action.
+  await clients.queue.request('bulkAdd', {
+    items: [
+      ...[...sendIds].map((id) => ({ namespace: 'Send', identifier: id })),
+      ...[...subscriberIds].map((id) => ({ namespace: 'Subscriber', identifier: id })),
+    ],
+  });
   log(`${subscriberIds.size} subscriber(s) and ${sendIds.size} send(s) flagged.`);
 
   log('Upserting into database...');
