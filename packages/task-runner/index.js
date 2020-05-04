@@ -1,9 +1,5 @@
 const { isFunction: isFn } = require('@lead-management/utils');
-
-const log = (message) => {
-  const { log: emit } = console;
-  emit(`> ${message}`);
-};
+const log = require('./log');
 
 const logStart = ({ timesRan }) => log(`Task iteration ${timesRan + 1} starting...`);
 const logComplete = ({ timesRan }) => log(`Task iteration ${timesRan + 1} complete!`);
